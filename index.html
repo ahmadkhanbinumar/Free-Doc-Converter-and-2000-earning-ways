@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UAE Cloud Store - Free Online Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--darker);
+        }
+
+        /* Animated Gradient Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(-45deg, #4f46e5, #10b981, #f59e0b, #ef4444);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Particle JS Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+
+        /* Main App Container */
+        #app {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(to right, #4f46e5, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #4f46e5, #10b981);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        /* Page Transition */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Home Page Styles */
+        #home-page .hero {
+            text-align: center;
+            padding: 8rem 1rem;
+            position: relative;
+        }
+
+        #home-page .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        #home-page .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, #c7d2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        #home-page .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+        }
+
+        #home-page .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #4f46e5, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Common Page Styles */
+        .page-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #4f46e5, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        /* Earn Online Page Styles */
+        #earn-page .search-container {
+            margin-bottom: 2rem;
+        }
+
+        #earn-page .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+        }
+
+        #earn-page .filter-chips {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .chip {
+            padding: 0.5rem 1rem;
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chip.active {
+            background: var(--primary);
+        }
+
+        #earn-page .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .method-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .method-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .method-card .category {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .method-card .earnings {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .method-card .daily-income {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .method-card .difficulty {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        .method-card .learn-more {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .method-card .learn-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Document Converter Page Styles */
+        #convert-page .converter-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #convert-page .drop-zone {
+            border: 2px dashed #94a3b8;
+            border-radius: 1rem;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        #convert-page .drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        #convert-page .drop-zone i {
+            font-size: 3rem;
+            color: #94a3b8;
+            margin-bottom: 1rem;
+        }
+
+        #convert-page .file-input {
+            display: none;
+        }
+
+        #convert-page .converter-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        #convert-page .option-btn {
+            padding: 1rem;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            color: white;
+        }
+
+        #convert-page .option-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        #convert-page .option-btn.active {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--primary);
+        }
+
+        #convert-page .advanced-options {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #convert-page .advanced-options h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        #convert-page .option-group {
+            margin-bottom: 1rem;
+        }
+
+        #convert-page .option-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #convert-page .option-group select,
+        #convert-page .option-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.6);
+            color: white;
+        }
+
+        #convert-page .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            display: none;
+        }
+
+        #convert-page .progress {
+            height: 100%;
+            background: linear-gradient(to right, #4f46e5, #10b981);
+            width: 0;
+            transition: width 0.3s;
+        }
+
+        #convert-page .download-btn {
+            display: none;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #convert-page .download-btn:hover {
+            background: #4338ca;
+        }
+
+        /* Visa Page Styles */
+        #visa-page .visa-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        #visa-page .select-container {
+            position: relative;
+        }
+
+        #visa-page .select-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        #visa-page select {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            appearance: none;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+        }
+
+        #visa-page .visa-type-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        #visa-page .visa-type-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        #visa-page .visa-type-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        #visa-page .visa-result {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+            display: none;
+        }
+
+        #visa-page .visa-status {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        #visa-page .visa-required {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        #visa-page .visa-free {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+        }
+
+        #visa-page .e-visa {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+        }
+
+        #visa-page .requirement-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #visa-page .requirement-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        #visa-page .embassy-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        #visa-page .embassy-link:hover {
+            text-decoration: underline;
+        }
+
+        /* About Page Styles */
+        #about-page .about-content {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #about-page .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        #about-page .team-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        #about-page .team-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary);
+        }
+
+        /* Privacy Policy Page Styles */
+        #privacy-page .privacy-content {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #privacy-page .privacy-section {
+            margin-bottom: 2rem;
+        }
+
+        #privacy-page .privacy-section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact/Support Page Styles */
+        #contact-page .contact-form {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #contact-page .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        #contact-page label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #contact-page input,
+        #contact-page textarea,
+        #contact-page select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        #contact-page textarea {
+            min-height: 150px;
+        }
+
+        #contact-page .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #contact-page .submit-btn:hover {
+            background: #4338ca;
+        }
+
+        #contact-page .faq-item {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #contact-page .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #contact-page .faq-answer {
+            display: none;
+            padding-top: 0.5rem;
+        }
+
+        #contact-page .faq-answer.show {
+            display: block;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--darker);
+            padding: 4rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            transform: translateX(5px);
+            color: var(--secondary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            color: var(--primary);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        /* Floating Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: rgba(30, 41, 59, 0.95);
+                flex-direction: column;
+                padding: 2rem;
+                align-items: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            #home-page .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            #home-page .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #visa-page .visa-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Gradient Background -->
+    <div class="bg-animation"></div>
+
+    <!-- Particle JS Background -->
+    <div id="particles-js"></div>
+
+    <div id="app">
+        <header>
+            <nav>
+                <a href="#" class="logo" onclick="navigate('home')">
+                    <i class="fas fa-cloud"></i>
+                    UAE Cloud Store
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="#" onclick="navigate('earn')" id="earn-link">Earn Online</a>
+                    <a href="#" onclick="navigate('convert')" id="convert-link">Document Converter</a>
+                    <a href="#" onclick="navigate('visa')" id="visa-link">Visa Guide</a>
+                    <a href="#" onclick="navigate('about')" id="about-link">About</a>
+                    <a href="#" onclick="navigate('privacy')" id="privacy-link">Privacy Policy</a>
+                    <a href="#" onclick="navigate('contact')" id="contact-link">Support</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- Home Page -->
+            <div id="home-page" class="page active">
+                <section class="hero">
+                    <div class="hero-content">
+                        <h1>Unlock Your Digital Potential With Free Tools</h1>
+                        <p>Discover 2000+ earning methods, convert documents instantly, and check visa requirements - all completely free with UAE Cloud Store.</p>
+                        <div class="cta-buttons">
+                            <a href="#" onclick="navigate('earn')" class="btn btn-primary floating">
+                                <i class="fas fa-money-bill-wave"></i> Start Earning
+                            </a>
+                            <a href="#" onclick="navigate('convert')" class="btn btn-secondary floating" style="animation-delay: 0.2s;">
+                                <i class="fas fa-file-export"></i> Convert Files
+                            </a>
+                            <a href="#" onclick="navigate('visa')" class="btn btn-accent floating" style="animation-delay: 0.4s;">
+                                <i class="fas fa-passport"></i> Visa Checker
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <h3>2000+ Earning Methods</h3>
+                        <p>Discover proven ways to make money online from anywhere in the world. Updated daily with new opportunities.</p>
+                        <a href="#" onclick="navigate('earn')" class="btn btn-primary" style="margin-top: 1.5rem; padding: 0.7rem 1.5rem;">Explore</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Document Converter</h3>
+                        <p>Convert PDFs, Word docs, images and more with our powerful, privacy-focused conversion tools.</p>
+                        <a href="#" onclick="navigate('convert')" class="btn btn-secondary" style="margin-top: 1.5rem; padding: 0.7rem 1.5rem;">Try Now</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Visa Requirements</h3>
+                        <p>Check visa rules for any country combination instantly. Get official embassy links and requirements.</p>
+                        <a href="#" onclick="navigate('visa')" class="btn btn-accent" style="margin-top: 1.5rem; padding: 0.7rem 1.5rem;">Check Visa</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Earn Online Page -->
+            <div id="earn-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">Online Earning Methods</h1>
+                    
+                    <div class="search-container">
+                        <input type="text" class="search-input" id="earnSearch" placeholder="Search 2000+ methods...">
+                    </div>
+                    
+                    <div class="filter-chips">
+                        <div class="chip active">All</div>
+                        <div class="chip">Passive Income</div>
+                        <div class="chip">Freelancing</div>
+                        <div class="chip">Beginner-Friendly</div>
+                        <div class="chip">High Revenue</div>
+                        <div class="chip">Affiliate Marketing</div>
+                        <div class="chip">Remote Jobs</div>
+                        <div class="chip">Content Creation</div>
+                        <div class="chip">E-commerce</div>
+                        <div class="chip">Investing</div>
+                        <div class="chip">Surveys</div>
+                        <div class="chip">Tutoring</div>
+                    </div>
+                    
+                    <div class="methods-grid" id="methodsGrid">
+                        <!-- Methods will be loaded here via JavaScript -->
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <button class="btn btn-primary" id="loadMoreMethods">
+                            <i class="fas fa-plus"></i> Load More Methods
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Converter Page -->
+            <div id="convert-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">Document Converter</h1>
+                    
+                    <div class="converter-container">
+                        <div class="drop-zone" id="dropZone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Drag & Drop Your File Here</h3>
+                            <p>or click to browse files</p>
+                            <input type="file" class="file-input" id="fileInput">
+                        </div>
+                        
+                        <div class="converter-options">
+                            <div class="option-btn active" data-type="pdf-word">
+                                <i class="fas fa-file-pdf"></i> PDF to Word
+                            </div>
+                            <div class="option-btn" data-type="word-pdf">
+                                <i class="fas fa-file-word"></i> Word to PDF
+                            </div>
+                            <div class="option-btn" data-type="image-pdf">
+                                <i class="fas fa-file-image"></i> Image to PDF
+                            </div>
+                            <div class="option-btn" data-type="compress-pdf">
+                                <i class="fas fa-file-archive"></i> Compress PDF
+                            </div>
+                            <div class="option-btn" data-type="pdf-excel">
+                                <i class="fas fa-file-excel"></i> PDF to Excel
+                            </div>
+                            <div class="option-btn" data-type="merge-pdf">
+                                <i class="fas fa-file-pdf"></i> Merge PDFs
+                            </div>
+                            <div class="option-btn" data-type="pdf-ppt">
+                                <i class="fas fa-file-powerpoint"></i> PDF to PPT
+                            </div>
+                            <div class="option-btn" data-type="ppt-pdf">
+                                <i class="fas fa-file-powerpoint"></i> PPT to PDF
+                            </div>
+                            <div class="option-btn" data-type="pdf-jpg">
+                                <i class="fas fa-file-image"></i> PDF to JPG
+                            </div>
+                            <div class="option-btn" data-type="jpg-pdf">
+                                <i class="fas fa-file-image"></i> JPG to PDF
+                            </div>
+                            <div class="option-btn" data-type="pdf-txt">
+                                <i class="fas fa-file-alt"></i> PDF to TXT
+                            </div>
+                            <div class="option-btn" data-type="txt-pdf">
+                                <i class="fas fa-file-alt"></i> TXT to PDF
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-options">
+                            <h3><i class="fas fa-cog"></i> Advanced Options</h3>
+                            <div class="option-group">
+                                <label for="quality">Output Quality:</label>
+                                <select id="quality">
+                                    <option value="high">High Quality (300dpi)</option>
+                                    <option value="medium" selected>Medium Quality (150dpi)</option>
+                                    <option value="low">Low Quality (72dpi)</option>
+                                </select>
+                            </div>
+                            <div class="option-group">
+                                <label for="password">Password Protection:</label>
+                                <input type="password" id="password" placeholder="Optional password">
+                            </div>
+                            <div class="option-group">
+                                <label for="watermark">Watermark Text:</label>
+                                <input type="text" id="watermark" placeholder="Optional watermark text">
+                            </div>
+                            <div class="option-group">
+                                <label>
+                                    <input type="checkbox" id="ocr"> Enable OCR (Text Recognition)
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label>
+                                    <input type="checkbox" id="optimize"> Optimize for Web
+                                </label>
+                            </div>
+                            <div class="option-group">
+                                <label for="pages">Pages to Convert:</label>
+                                <input type="text" id="pages" placeholder="e.g. 1-5, 8, 11-15 (leave blank for all)">
+                            </div>
+                        </div>
+                        
+                        <div class="progress-bar" id="progressBar">
+                            <div class="progress" id="progress"></div>
+                        </div>
+                        
+                        <button class="download-btn" id="downloadBtn">
+                            <i class="fas fa-download"></i> Download Converted File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visa Requirements Page -->
+            <div id="visa-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">Visa Requirements Checker</h1>
+                    
+                    <div class="visa-form">
+                        <div class="select-container">
+                            <i class="fas fa-passport"></i>
+                            <select id="nationality">
+                                <option value="">Select Your Nationality</option>
+                                <!-- Countries will be loaded via JavaScript -->
+                            </select>
+                        </div>
+                        <div class="select-container">
+                            <i class="fas fa-plane"></i>
+                            <select id="destination">
+                                <option value="">Select Destination</option>
+                                <!-- Countries will be loaded via JavaScript -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="visa-type-buttons">
+                        <div class="visa-type-btn active" data-type="tourist">Tourist Visa</div>
+                        <div class="visa-type-btn" data-type="business">Business Visa</div>
+                        <div class="visa-type-btn" data-type="student">Student Visa</div>
+                        <div class="visa-type-btn" data-type="work">Work Visa</div>
+                        <div class="visa-type-btn" data-type="transit">Transit Visa</div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="checkVisaBtn" style="width: 100%;">
+                        Check Visa Requirements
+                    </button>
+                    
+                    <div class="visa-result" id="visaResult">
+                        <!-- Visa results will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Page -->
+            <div id="about-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">About UAE Cloud Store</h1>
+                    
+                    <div class="about-content">
+                        <h2>Our Mission</h2>
+                        <p>At UAE Cloud Store, we believe in democratizing access to digital tools that can help people earn money online, manage their documents, and navigate international travel requirements - all for free.</p>
+                        
+                        <h2>Our Story</h2>
+                        <p>Founded in 2023, UAE Cloud Store started as a small project to help friends and family navigate the complexities of online income opportunities. Today, we serve thousands of users worldwide with our comprehensive suite of free tools.</p>
+                        
+                        <h2>Meet the Team</h2>
+                        <div class="team-grid">
+                            <div class="team-card">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member">
+                                <h3>Ahmed Al-Mansoori</h3>
+                                <p>Founder & CEO</p>
+                            </div>
+                            <div class="team-card">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member">
+                                <h3>Fatima Khan</h3>
+                                <p>Lead Developer</p>
+                            </div>
+                            <div class="team-card">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member">
+                                <h3>Omar Hassan</h3>
+                                <p>UX Designer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Policy Page -->
+            <div id="privacy-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">Privacy Policy</h1>
+                    
+                    <div class="privacy-content">
+                        <div class="privacy-section">
+                            <h2>1. Information We Collect</h2>
+                            <p>We collect minimal personal information to provide our services. For document conversion, files are processed temporarily and automatically deleted after 1 hour. We don't store your documents long-term.</p>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h2>2. How We Use Your Information</h2>
+                            <p>We use your information solely to provide the services you request. We don't sell or share your data with third parties except as necessary to provide our services (e.g., API providers for document conversion).</p>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h2>3. Data Security</h2>
+                            <p>We implement industry-standard security measures to protect your data. All file transfers are encrypted, and our systems are regularly audited for vulnerabilities.</p>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h2>4. Cookies and Tracking</h2>
+                            <p>We use minimal cookies for essential functionality. You can control cookies through your browser settings.</p>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h2>5. Changes to This Policy</h2>
+                            <p>We may update this policy occasionally. We'll notify you of significant changes through our website or email.</p>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h2>6. Contact Us</h2>
+                            <p>If you have questions about this policy, please contact us at privacy@uaecloudstore.com.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact/Support Page -->
+            <div id="contact-page" class="page">
+                <div class="page-container">
+                    <h1 class="section-title">Support Center</h1>
+                    
+                    <div class="contact-form">
+                        <h2>Contact Us</h2>
+                        <form id="supportForm">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject">
+                                    <option value="general">General Inquiry</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                    
+                    <div style="margin-top: 3rem;">
+                        <h2>Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>Is UAE Cloud Store really free to use?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Yes! All our tools are completely free to use. We're supported by ads and affiliate partnerships, but we'll never charge you for access to our core features.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How often is the earning methods database updated?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We update our database weekly with new methods and verify existing ones monthly to ensure all information is accurate and up-to-date.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>What happens to my documents after conversion?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>All files are automatically deleted from our servers after 1 hour. We don't store your documents long-term and never access their contents.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <span>How accurate are the visa requirements?</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                <p>Our visa data comes from official government sources and is updated regularly. However, we recommend verifying with the embassy before travel as policies can change.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="navigate('home')">Home</a></li>
+                        <li><a href="#" onclick="navigate('earn')">Earn Online</a></li>
+                        <li><a href="#" onclick="navigate('convert')">Document Converter</a></li>
+                        <li><a href="#" onclick="navigate('visa')">Visa Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="navigate('about')">About Us</a></li>
+                        <li><a href="#" onclick="navigate('privacy')">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#" onclick="navigate('contact')">Contact Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p style="margin-top: 1.5rem; opacity: 0.8;">Email: uaecloudstore@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 UAE Cloud Store. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Particle JS Script -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize Particle.js
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ffffff"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 3,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 40,
+                            "size_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 2,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "grab"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "grab": {
+                            "distance": 140,
+                            "line_linked": {
+                                "opacity": 1
+                            }
+                        },
+                        "bubble": {
+                            "distance": 400,
+                            "size": 40,
+                            "duration": 2,
+                            "opacity": 8,
+                            "speed": 3
+                        },
+                        "repulse": {
+                            "distance": 200,
+                            "duration": 0.4
+                        },
+                        "push": {
+                            "particles_nb": 4
+                        },
+                        "remove": {
+                            "particles_nb": 2
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+            // Initialize the page
+            initPage();
+        });
+
+        // Page Navigation
+        function navigate(page) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => {
+                p.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(`${page}-page`).classList.add('active');
+            
+            // Update active link in navigation
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById(`${page}-link`).classList.add('active');
+            
+            // Close mobile menu if open
+            navLinks.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Responsive adjustment
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Initialize page functionality
+        function initPage() {
+            // Sample data for earning methods (2000+ in real implementation)
+            const earningMethods = [
+                {
+                    id: 1,
+                    title: "YouTube Monetization",
+                    category: "Passive Income",
+                    earnings: "$500-$10,000/month",
+                    dailyIncome: "$15-$300/day",
+                    difficulty: "Intermediate",
+                    description: "Earn money from ads on your YouTube videos after meeting requirements (1,000 subscribers and 4,000 watch hours).",
+                    learnMoreLink: "https://www.youtube.com/yt/creators/creator-benefits.html"
+                },
+                {
+                    id: 2,
+                    title: "Freelance Writing",
+                    category: "Freelancing",
+                    earnings: "$20-$100 per article",
+                    dailyIncome: "$50-$500/day",
+                    difficulty: "Beginner",
+                    description: "Write articles for blogs and websites on platforms like Upwork and Fiverr.",
+                    learnMoreLink: "https://www.upwork.com/"
+                },
+                {
+                    id: 3,
+                    title: "Affiliate Marketing",
+                    category: "Passive Income",
+                    earnings: "$100-$10,000/month",
+                    dailyIncome: "$3-$300/day",
+                    difficulty: "Advanced",
+                    description: "Promote products and earn commissions through affiliate programs like Amazon Associates.",
+                    learnMoreLink: "https://affiliate-program.amazon.com/"
+                },
+                {
+                    id: 4,
+                    title: "Dropshipping",
+                    category: "E-commerce",
+                    earnings: "$500-$20,000/month",
+                    dailyIncome: "$15-$600/day",
+                    difficulty: "Intermediate",
+                    description: "Sell products without holding inventory using platforms like Shopify and AliExpress.",
+                    learnMoreLink: "https://www.shopify.com/dropshipping"
+                },
+                {
+                    id: 5,
+                    title: "Online Surveys",
+                    category: "Easy Money",
+                    earnings: "$1-$5 per survey",
+                    dailyIncome: "$5-$20/day",
+                    difficulty: "Beginner",
+                    description: "Complete surveys for cash or gift cards on platforms like Swagbucks and Survey Junkie.",
+                    learnMoreLink: "https://www.swagbucks.com/"
+                },
+                {
+                    id: 6,
+                    title: "Virtual Assistant",
+                    category: "Remote Work",
+                    earnings: "$10-$30/hour",
+                    dailyIncome: "$80-$240/day",
+                    difficulty: "Beginner",
+                    description: "Provide administrative support to businesses or entrepreneurs remotely.",
+                    learnMoreLink: "https://www.timeetc.com/"
+                },
+                {
+                    id: 7,
+                    title: "Print on Demand",
+                    category: "Passive Income",
+                    earnings: "$300-$5,000/month",
+                    dailyIncome: "$10-$150/day",
+                    difficulty: "Intermediate",
+                    description: "Sell custom designs on products without inventory using services like Printful.",
+                    learnMoreLink: "https://www.printful.com/"
+                },
+                {
+                    id: 8,
+                    title: "Stock Photography",
+                    category: "Passive Income",
+                    earnings: "$100-$2,000/month",
+                    dailyIncome: "$3-$60/day",
+                    difficulty: "Intermediate",
+                    description: "Sell your photos on platforms like Shutterstock and Adobe Stock.",
+                    learnMoreLink: "https://www.shutterstock.com/"
+                },
+                {
+                    id: 9,
+                    title: "Online Tutoring",
+                    category: "Remote Work",
+                    earnings: "$15-$50/hour",
+                    dailyIncome: "$120-$400/day",
+                    difficulty: "Intermediate",
+                    description: "Teach subjects you're knowledgeable about on platforms like Chegg and Tutor.com.",
+                    learnMoreLink: "https://www.chegg.com/tutors/"
+                },
+                {
+                    id: 10,
+                    title: "Social Media Management",
+                    category: "Freelancing",
+                    earnings: "$500-$5,000/month",
+                    dailyIncome: "$15-$150/day",
+                    difficulty: "Intermediate",
+                    description: "Manage social media accounts for businesses and influencers.",
+                    learnMoreLink: "https://later.com/"
+                },
+                {
+                    id: 11,
+                    title: "Blogging",
+                    category: "Passive Income",
+                    earnings: "$100-$50,000/month",
+                    dailyIncome: "$3-$1,600/day",
+                    difficulty: "Advanced",
+                    description: "Create content around a niche and monetize through ads, affiliates, and products.",
+                    learnMoreLink: "https://wordpress.org/"
+                },
+                {
+                    id: 12,
+                    title: "Podcasting",
+                    category: "Content Creation",
+                    earnings: "$200-$20,000/month",
+                    dailyIncome: "$6-$600/day",
+                    difficulty: "Intermediate",
+                    description: "Start a podcast and monetize through sponsorships and ads.",
+                    learnMoreLink: "https://anchor.fm/"
+                },
+                {
+                    id: 13,
+                    title: "eBay Selling",
+                    category: "E-commerce",
+                    earnings: "$300-$10,000/month",
+                    dailyIncome: "$10-$300/day",
+                    difficulty: "Beginner",
+                    description: "Sell new or used items on eBay marketplace.",
+                    learnMoreLink: "https://www.ebay.com/"
+                },
+                {
+                    id: 14,
+                    title: "Amazon FBA",
+                    category: "E-commerce",
+                    earnings: "$1,000-$50,000/month",
+                    dailyIncome: "$30-$1,600/day",
+                    difficulty: "Advanced",
+                    description: "Sell products using Amazon's fulfillment service.",
+                    learnMoreLink: "https://services.amazon.com/fulfillment-by-amazon.html"
+                },
+                {
+                    id: 15,
+                    title: "App Development",
+                    category: "Freelancing",
+                    earnings: "$5,000-$50,000/month",
+                    dailyIncome: "$160-$1,600/day",
+                    difficulty: "Advanced",
+                    description: "Create mobile apps for iOS or Android and monetize through ads or sales.",
+                    learnMoreLink: "https://developer.android.com/"
+                },
+                {
+                    id: 16,
+                    title: "Graphic Design",
+                    category: "Freelancing",
+                    earnings: "$20-$100/hour",
+                    dailyIncome: "$160-$800/day",
+                    difficulty: "Intermediate",
+                    description: "Create logos, banners, and other designs for clients.",
+                    learnMoreLink: "https://www.canva.com/"
+                },
+                {
+                    id: 17,
+                    title: "Web Development",
+                    category: "Freelancing",
+                    earnings: "$30-$150/hour",
+                    dailyIncome: "$240-$1,200/day",
+                    difficulty: "Advanced",
+                    description: "Build websites for clients or create your own SaaS product.",
+                    learnMoreLink: "https://www.freecodecamp.org/"
+                },
+                {
+                    id: 18,
+                    title: "Translation Services",
+                    category: "Freelancing",
+                    earnings: "$20-$50/hour",
+                    dailyIncome: "$160-$400/day",
+                    difficulty: "Intermediate",
+                    description: "Translate documents or websites if you're bilingual.",
+                    learnMoreLink: "https://www.proz.com/"
+                },
+                {
+                    id: 19,
+                    title: "Proofreading",
+                    category: "Freelancing",
+                    earnings: "$15-$45/hour",
+                    dailyIncome: "$120-$360/day",
+                    difficulty: "Beginner",
+                    description: "Check documents for grammar and spelling errors.",
+                    learnMoreLink: "https://www.upwork.com/"
+                },
+                {
+                    id: 20,
+                    title: "Voice Over Work",
+                    category: "Freelancing",
+                    earnings: "$50-$500/project",
+                    dailyIncome: "$50-$500/day",
+                    difficulty: "Intermediate",
+                    description: "Provide voice overs for commercials, audiobooks, etc.",
+                    learnMoreLink: "https://www.voices.com/"
+                },
+                {
+                    id: 21,
+                    title: "Online Courses",
+                    category: "Passive Income",
+                    earnings: "$500-$50,000/month",
+                    dailyIncome: "$15-$1,600/day",
+                    difficulty: "Advanced",
+                    description: "Create and sell courses on platforms like Udemy.",
+                    learnMoreLink: "https://www.udemy.com/"
+                },
+                {
+                    id: 22,
+                    title: "Ebook Publishing",
+                    category: "Passive Income",
+                    earnings: "$100-$10,000/month",
+                    dailyIncome: "$3-$300/day",
+                    difficulty: "Intermediate",
+                    description: "Write and self-publish ebooks on Amazon Kindle.",
+                    learnMoreLink: "https://kdp.amazon.com/"
+                },
+                {
+                    id: 23,
+                    title: "Stock Trading",
+                    category: "Investing",
+                    earnings: "Varies widely",
+                    dailyIncome: "Varies",
+                    difficulty: "Advanced",
+                    description: "Trade stocks, forex, or cryptocurrencies online.",
+                    learnMoreLink: "https://www.investopedia.com/"
+                },
+                {
+                    id: 24,
+                    title: "Dropservicing",
+                    category: "Freelancing",
+                    earnings: "$1,000-$20,000/month",
+                    dailyIncome: "$30-$600/day",
+                    difficulty: "Intermediate",
+                    description: "Sell services you outsource to freelancers.",
+                    learnMoreLink: "https://www.upwork.com/"
+                },
+                {
+                    id: 25,
+                    title: "Print on Demand",
+                    category: "E-commerce",
+                    earnings: "$300-$5,000/month",
+                    dailyIncome: "$10-$150/day",
+                    difficulty: "Beginner",
+                    description: "Sell custom designs on products without inventory.",
+                    learnMoreLink: "https://www.printful.com/"
+                },
+                {
+                    id: 26,
+                    title: "Fiverr Gigs",
+                    category: "Freelancing",
+                    earnings: "$5-$500/gig",
+                    dailyIncome: "$5-$500/day",
+                    difficulty: "Beginner",
+                    description: "Offer small services starting at $5 on Fiverr.",
+                    learnMoreLink: "https://www.fiverr.com/"
+                },
+                {
+                    id: 27,
+                    title: "Instagram Marketing",
+                    category: "Freelancing",
+                    earnings: "$500-$5,000/month",
+                    dailyIncome: "$15-$150/day",
+                    difficulty: "Intermediate",
+                    description: "Grow Instagram accounts and monetize through sponsorships.",
+                    learnMoreLink: "https://later.com/"
+                },
+                {
+                    id: 28,
+                    title: "Facebook Ads Management",
+                    category: "Freelancing",
+                    earnings: "$1,000-$10,000/month",
+                    dailyIncome: "$30-$300/day",
+                    difficulty: "Advanced",
+                    description: "Run ad campaigns for businesses on Facebook.",
+                    learnMoreLink: "https://www.facebook.com/business/learn"
+                },
+                {
+                    id: 29,
+                    title: "SEO Consulting",
+                    category: "Freelancing",
+                    earnings: "$50-$300/hour",
+                    dailyIncome: "$400-$2,400/day",
+                    difficulty: "Advanced",
+                    description: "Help businesses improve their search engine rankings.",
+                    learnMoreLink: "https://moz.com/beginners-guide-to-seo"
+                },
+                {
+                    id: 30,
+                    title: "Amazon Mechanical Turk",
+                    category: "Easy Money",
+                    earnings: "$5-$20/hour",
+                    dailyIncome: "$5-$20/day",
+                    difficulty: "Beginner",
+                    description: "Complete small online tasks for pay.",
+                    learnMoreLink: "https://www.mturk.com/"
+                },
+                // Additional 170+ methods would be added here in a real implementation
+                // For demo purposes, we'll duplicate some to show the functionality
+                ...Array.from({length: 170}, (_, i) => ({
+                    id: 31 + i,
+                    title: `Online Business ${i+31}`,
+                    category: ["Passive Income", "Freelancing", "E-commerce", "Investing"][Math.floor(Math.random() * 4)],
+                    earnings: `$${Math.floor(Math.random() * 5000) + 100}-$${Math.floor(Math.random() * 50000) + 1000}/month`,
+                    dailyIncome: `$${Math.floor(Math.random() * 150) + 5}-$${Math.floor(Math.random() * 1600) + 50}/day`,
+                    difficulty: ["Beginner", "Intermediate", "Advanced"][Math.floor(Math.random() * 3)],
+                    description: "This is a sample description for an online earning method. In a real implementation, this would be specific to each method.",
+                    learnMoreLink: "https://www.example.com"
+                }))
+            ];
+
+            // Display Earning Methods
+            const methodsGrid = document.getElementById('methodsGrid');
+            const earnSearch = document.getElementById('earnSearch');
+            const loadMoreBtn = document.getElementById('loadMoreMethods');
+            
+            let displayedMethods = 10; // Start with 10, load more when clicked
+            
+            function displayMethods(methods) {
+                methodsGrid.innerHTML = '';
+                methods.slice(0, displayedMethods).forEach(method => {
+                    const methodCard = document.createElement('div');
+                    methodCard.className = 'method-card';
+                    methodCard.innerHTML = `
+                        <h3>${method.title}</h3>
+                        <span class="category">${method.category}</span>
+                        <p class="earnings">Earnings: ${method.earnings}</p>
+                        <p class="daily-income">Daily Income: ${method.dailyIncome}</p>
+                        <p class="difficulty">Difficulty: ${method.difficulty}</p>
+                        <p>${method.description}</p>
+                        <a href="${method.learnMoreLink}" target="_blank" class="learn-more">
+                            <i class="fas fa-external-link-alt"></i> Learn More
+                        </a>
+                    `;
+                    methodsGrid.appendChild(methodCard);
+                });
+                
+                // Show/hide load more button
+                if (displayedMethods >= methods.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'inline-block';
+                }
+            }
+            
+            // Initial display
+            displayMethods(earningMethods);
+            
+            // Load more methods
+            loadMoreBtn.addEventListener('click', () => {
+                displayedMethods += 10;
+                displayMethods(earningMethods);
+            });
+            
+            // Search functionality
+            earnSearch.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredMethods = earningMethods.filter(method => 
+                    method.title.toLowerCase().includes(searchTerm) || 
+                    method.category.toLowerCase().includes(searchTerm) ||
+                    method.description.toLowerCase().includes(searchTerm) ||
+                    method.earnings.toLowerCase().includes(searchTerm)
+                );
+                displayMethods(filteredMethods);
+            });
+            
+            // Filter chips
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    
+                    const filter = chip.textContent;
+                    if (filter === 'All') {
+                        displayMethods(earningMethods);
+                    } else {
+                        const filteredMethods = earningMethods.filter(method => 
+                            method.category === filter || 
+                            method.difficulty.toLowerCase().includes(filter.toLowerCase())
+                        );
+                        displayMethods(filteredMethods);
+                    }
+                });
+            });
+
+            // Document Converter Functionality
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const optionBtns = document.querySelectorAll('.option-btn');
+            const progressBar = document.getElementById('progressBar');
+            const progress = document.getElementById('progress');
+            const downloadBtn = document.getElementById('downloadBtn');
+
+            let conversionType = 'pdf-word';
+            let selectedFile = null;
+
+            // Set conversion type
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    optionBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    conversionType = btn.dataset.type;
+                });
+            });
+
+            // Handle file selection
+            dropZone.addEventListener('click', () => fileInput.click());
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length) {
+                    selectedFile = e.target.files[0];
+                    handleFileSelection(selectedFile);
+                }
+            });
+
+            // Drag and drop
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropZone.style.borderColor = 'var(--primary)';
+                dropZone.style.backgroundColor = 'rgba(79, 70, 229, 0.1)';
+            }
+
+            function unhighlight() {
+                dropZone.style.borderColor = '#94a3b8';
+                dropZone.style.backgroundColor = '';
+            }
+
+            dropZone.addEventListener('drop', (e) => {
+                const dt = e.dataTransfer;
+                const file = dt.files[0];
+                selectedFile = file;
+                handleFileSelection(file);
+            });
+
+            function handleFileSelection(file) {
+                if (file.size > 10 * 1024 * 1024) { // 10MB limit
+                    alert('File is too large. Maximum size is 10MB.');
+                    return;
+                }
+
+                dropZone.innerHTML = `
+                    <i class="fas fa-file-alt"></i>
+                    <h3>${file.name}</h3>
+                    <p>${(file.size / 1024 / 1024).toFixed(2)} MB</p>
+                    <button class="btn btn-secondary" id="convertBtn" style="margin-top: 1rem;">
+                        Convert Now
+                    </button>
+                `;
+
+                document.getElementById('convertBtn').addEventListener('click', convertFile);
+            }
+
+            function convertFile() {
+                // Show progress bar
+                progressBar.style.display = 'block';
+                progress.style.width = '0%';
+                
+                // Get advanced options
+                const quality = document.getElementById('quality').value;
+                const password = document.getElementById('password').value;
+                const watermark = document.getElementById('watermark').value;
+                const ocr = document.getElementById('ocr').checked;
+                const optimize = document.getElementById('optimize').checked;
+                const pages = document.getElementById('pages').value;
+                
+                // Show processing message
+                dropZone.innerHTML = `
+                    <i class="fas fa-cog fa-spin"></i>
+                    <h3>Processing ${selectedFile.name}</h3>
+                    <p>Converting to ${conversionType.replace('-', ' to ')}...</p>
+                `;
+                
+                // Simulate conversion progress
+                let progressPercent = 0;
+                const progressInterval = setInterval(() => {
+                    progressPercent += 10;
+                    progress.style.width = `${progressPercent}%`;
+                    
+                    if (progressPercent >= 100) {
+                        clearInterval(progressInterval);
+                        conversionComplete();
+                    }
+                }, 300);
+            }
+
+            function conversionComplete() {
+                // In a real app, you would use the PDF.co API here
+                // For demo purposes, we'll simulate a successful conversion
+                dropZone.innerHTML = `
+                    <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                    <h3>Conversion Complete!</h3>
+                    <p>${selectedFile.name} converted to ${conversionType.replace('-', ' to ')}</p>
+                `;
+                
+                downloadBtn.style.display = 'block';
+                
+                downloadBtn.addEventListener('click', () => {
+                    alert('In a real implementation, this would download the converted file.\n\nFor demo purposes, we\'re showing this message instead of making actual API calls to PDF.co.');
+                });
+            }
+
+            // Visa Requirements Checker
+            const nationalitySelect = document.getElementById('nationality');
+            const destinationSelect = document.getElementById('destination');
+            const visaTypeBtns = document.querySelectorAll('.visa-type-btn');
+            const checkVisaBtn = document.getElementById('checkVisaBtn');
+            const visaResult = document.getElementById('visaResult');
+
+            // List of all 195 countries with ISO codes
+            const countries = [
+                { code: "AF", name: "Afghanistan" },
+                { code: "AL", name: "Albania" },
+                { code: "DZ", name: "Algeria" },
+                { code: "AD", name: "Andorra" },
+                { code: "AO", name: "Angola" },
+                { code: "AG", name: "Antigua and Barbuda" },
+                { code: "AR", name: "Argentina" },
+                { code: "AM", name: "Armenia" },
+                { code: "AU", name: "Australia" },
+                { code: "AT", name: "Austria" },
+                { code: "AZ", name: "Azerbaijan" },
+                { code: "BS", name: "Bahamas" },
+                { code: "BH", name: "Bahrain" },
+                { code: "BD", name: "Bangladesh" },
+                { code: "BB", name: "Barbados" },
+                { code: "BY", name: "Belarus" },
+                { code: "BE", name: "Belgium" },
+                { code: "BZ", name: "Belize" },
+                { code: "BJ", name: "Benin" },
+                { code: "BT", name: "Bhutan" },
+                { code: "BO", name: "Bolivia" },
+                { code: "BA", name: "Bosnia and Herzegovina" },
+                { code: "BW", name: "Botswana" },
+                { code: "BR", name: "Brazil" },
+                { code: "BN", name: "Brunei" },
+                { code: "BG", name: "Bulgaria" },
+                { code: "BF", name: "Burkina Faso" },
+                { code: "BI", name: "Burundi" },
+                { code: "CV", name: "Cabo Verde" },
+                { code: "KH", name: "Cambodia" },
+                { code: "CM", name: "Cameroon" },
+                { code: "CA", name: "Canada" },
+                { code: "CF", name: "Central African Republic" },
+                { code: "TD", name: "Chad" },
+                { code: "CL", name: "Chile" },
+                { code: "CN", name: "China" },
+                { code: "CO", name: "Colombia" },
+                { code: "KM", name: "Comoros" },
+                { code: "CG", name: "Congo" },
+                { code: "CR", name: "Costa Rica" },
+                { code: "HR", name: "Croatia" },
+                { code: "CU", name: "Cuba" },
+                { code: "CY", name: "Cyprus" },
+                { code: "CZ", name: "Czech Republic" },
+                { code: "DK", name: "Denmark" },
+                { code: "DJ", name: "Djibouti" },
+                { code: "DM", name: "Dominica" },
+                { code: "DO", name: "Dominican Republic" },
+                { code: "EC", name: "Ecuador" },
+                { code: "EG", name: "Egypt" },
+                { code: "SV", name: "El Salvador" },
+                { code: "GQ", name: "Equatorial Guinea" },
+                { code: "ER", name: "Eritrea" },
+                { code: "EE", name: "Estonia" },
+                { code: "SZ", name: "Eswatini" },
+                { code: "ET", name: "Ethiopia" },
+                { code: "FJ", name: "Fiji" },
+                { code: "FI", name: "Finland" },
+                { code: "FR", name: "France" },
+                { code: "GA", name: "Gabon" },
+                { code: "GM", name: "Gambia" },
+                { code: "GE", name: "Georgia" },
+                { code: "DE", name: "Germany" },
+                { code: "GH", name: "Ghana" },
+                { code: "GR", name: "Greece" },
+                { code: "GD", name: "Grenada" },
+                { code: "GT", name: "Guatemala" },
+                { code: "GN", name: "Guinea" },
+                { code: "GW", name: "Guinea-Bissau" },
+                { code: "GY", name: "Guyana" },
+                { code: "HT", name: "Haiti" },
+                { code: "HN", name: "Honduras" },
+                { code: "HU", name: "Hungary" },
+                { code: "IS", name: "Iceland" },
+                { code: "IN", name: "India" },
+                { code: "ID", name: "Indonesia" },
+                { code: "IR", name: "Iran" },
+                { code: "IQ", name: "Iraq" },
+                { code: "IE", name: "Ireland" },
+                { code: "IL", name: "Israel" },
+                { code: "IT", name: "Italy" },
+                { code: "JM", name: "Jamaica" },
+                { code: "JP", name: "Japan" },
+                { code: "JO", name: "Jordan" },
+                { code: "KZ", name: "Kazakhstan" },
+                { code: "KE", name: "Kenya" },
+                { code: "KI", name: "Kiribati" },
+                { code: "KP", name: "North Korea" },
+                { code: "KR", name: "South Korea" },
+                { code: "KW", name: "Kuwait" },
+                { code: "KG", name: "Kyrgyzstan" },
+                { code: "LA", name: "Laos" },
+                { code: "LV", name: "Latvia" },
+                { code: "LB", name: "Lebanon" },
+                { code: "LS", name: "Lesotho" },
+                { code: "LR", name: "Liberia" },
+                { code: "LY", name: "Libya" },
+                { code: "LI", name: "Liechtenstein" },
+                { code: "LT", name: "Lithuania" },
+                { code: "LU", name: "Luxembourg" },
+                { code: "MG", name: "Madagascar" },
+                { code: "MW", name: "Malawi" },
+                { code: "MY", name: "Malaysia" },
+                { code: "MV", name: "Maldives" },
+                { code: "ML", name: "Mali" },
+                { code: "MT", name: "Malta" },
+                { code: "MH", name: "Marshall Islands" },
+                { code: "MR", name: "Mauritania" },
+                { code: "MU", name: "Mauritius" },
+                { code: "MX", name: "Mexico" },
+                { code: "FM", name: "Micronesia" },
+                { code: "MD", name: "Moldova" },
+                { code: "MC", name: "Monaco" },
+                { code: "MN", name: "Mongolia" },
+                { code: "ME", name: "Montenegro" },
+                { code: "MA", name: "Morocco" },
+                { code: "MZ", name: "Mozambique" },
+                { code: "MM", name: "Myanmar" },
+                { code: "NA", name: "Namibia" },
+                { code: "NR", name: "Nauru" },
+                { code: "NP", name: "Nepal" },
+                { code: "NL", name: "Netherlands" },
+                { code: "NZ", name: "New Zealand" },
+                { code: "NI", name: "Nicaragua" },
+                { code: "NE", name: "Niger" },
+                { code: "NG", name: "Nigeria" },
+                { code: "MK", name: "North Macedonia" },
+                { code: "NO", name: "Norway" },
+                { code: "OM", name: "Oman" },
+                { code: "PK", name: "Pakistan" },
+                { code: "PW", name: "Palau" },
+                { code: "PA", name: "Panama" },
+                { code: "PG", name: "Papua New Guinea" },
+                { code: "PY", name: "Paraguay" },
+                { code: "PE", name: "Peru" },
+                { code: "PH", name: "Philippines" },
+                { code: "PL", name: "Poland" },
+                { code: "PT", name: "Portugal" },
+                { code: "QA", name: "Qatar" },
+                { code: "RO", name: "Romania" },
+                { code: "RU", name: "Russia" },
+                { code: "RW", name: "Rwanda" },
+                { code: "KN", name: "Saint Kitts and Nevis" },
+                { code: "LC", name: "Saint Lucia" },
+                { code: "VC", name: "Saint Vincent and the Grenadines" },
+                { code: "WS", name: "Samoa" },
+                { code: "SM", name: "San Marino" },
+                { code: "ST", name: "Sao Tome and Principe" },
+                { code: "SA", name: "Saudi Arabia" },
+                { code: "SN", name: "Senegal" },
+                { code: "RS", name: "Serbia" },
+                { code: "SC", name: "Seychelles" },
+                { code: "SL", name: "Sierra Leone" },
+                { code: "SG", name: "Singapore" },
+                { code: "SK", name: "Slovakia" },
+                { code: "SI", name: "Slovenia" },
+                { code: "SB", name: "Solomon Islands" },
+                { code: "SO", name: "Somalia" },
+                { code: "ZA", name: "South Africa" },
+                { code: "SS", name: "South Sudan" },
+                { code: "ES", name: "Spain" },
+                { code: "LK", name: "Sri Lanka" },
+                { code: "SD", name: "Sudan" },
+                { code: "SR", name: "Suriname" },
+                { code: "SE", name: "Sweden" },
+                { code: "CH", name: "Switzerland" },
+                { code: "SY", name: "Syria" },
+                { code: "TW", name: "Taiwan" },
+                { code: "TJ", name: "Tajikistan" },
+                { code: "TZ", name: "Tanzania" },
+                { code: "TH", name: "Thailand" },
+                { code: "TL", name: "Timor-Leste" },
+                { code: "TG", name: "Togo" },
+                { code: "TO", name: "Tonga" },
+                { code: "TT", name: "Trinidad and Tobago" },
+                { code: "TN", name: "Tunisia" },
+                { code: "TR", name: "Turkey" },
+                { code: "TM", name: "Turkmenistan" },
+                { code: "TV", name: "Tuvalu" },
+                { code: "UG", name: "Uganda" },
+                { code: "UA", name: "Ukraine" },
+                { code: "AE", name: "United Arab Emirates" },
+                { code: "GB", name: "United Kingdom" },
+                { code: "US", name: "United States" },
+                { code: "UY", name: "Uruguay" },
+                { code: "UZ", name: "Uzbekistan" },
+                { code: "VU", name: "Vanuatu" },
+                { code: "VA", name: "Vatican City" },
+                { code: "VE", name: "Venezuela" },
+                { code: "VN", name: "Vietnam" },
+                { code: "YE", name: "Yemen" },
+                { code: "ZM", name: "Zambia" },
+                { code: "ZW", name: "Zimbabwe" }
+            ];
+
+            // Populate country dropdowns
+            countries.forEach(country => {
+                const option1 = document.createElement('option');
+                option1.value = country.code;
+                option1.textContent = country.name;
+                nationalitySelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = country.code;
+                option2.textContent = country.name;
+                destinationSelect.appendChild(option2);
+            });
+
+            // Set visa type
+            let visaType = 'tourist';
+            visaTypeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    visaTypeBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    visaType = btn.dataset.type;
+                });
+            });
+
+            // Sample visa data for all countries (in a real app, you'd use the Sherpa API)
+            // This is a simplified version - in reality you'd have more detailed data
+            const visaData = {
+                // US citizens
+                "US_AE": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "30 days", notes: ["Extendable for additional 30 days"] },
+                "US_CA": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "6 months" },
+                "US_GB": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "6 months" },
+                "US_FR": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "90 days (Schengen Area)" },
+                "US_IN": { requirement: "E_VISA", type: "tourist", allowed_stay: "60 days", notes: ["Apply online before travel", "Fee: $25"] },
+                
+                // UAE citizens
+                "AE_US": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "90 days", notes: ["ESTA required"] },
+                "AE_GB": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "6 months" },
+                "AE_CA": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "6 months" },
+                "AE_SA": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "90 days" },
+                "AE_IN": { requirement: "E_VISA", type: "tourist", allowed_stay: "60 days" },
+                
+                // Indian citizens
+                "IN_US": { requirement: "VISA_REQUIRED", type: "tourist", allowed_stay: "Up to 6 months", notes: ["Interview required"] },
+                "IN_AE": { requirement: "E_VISA", type: "tourist", allowed_stay: "14 days", notes: ["Apply online before travel"] },
+                "IN_GB": { requirement: "VISA_REQUIRED", type: "tourist", allowed_stay: "6 months" },
+                "IN_CA": { requirement: "VISA_REQUIRED", type: "tourist", allowed_stay: "6 months" },
+                "IN_FR": { requirement: "VISA_REQUIRED", type: "tourist", allowed_stay: "90 days (Schengen Area)" },
+                
+                // UK citizens
+                "GB_US": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "90 days", notes: ["ESTA required"] },
+                "GB_AE": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "30 days" },
+                "GB_CA": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "6 months" },
+                "GB_FR": { requirement: "VISA_FREE", type: "tourist", allowed_stay: "90 days (Schengen Area)" },
+                "GB_IN": { requirement: "E_VISA", type: "tourist", allowed_stay: "60 days" },
+                
+                // For all other combinations, we'll generate a random result for demo purposes
+                // In a real app, you would have complete visa data
+                // This is just to demonstrate the functionality
+                ...(() => {
+                    const allCombinations = {};
+                    countries.forEach(from => {
+                        countries.forEach(to => {
+                            if (from.code !== to.code) {
+                                const key = `${from.code}_${to.code}`;
+                                if (!visaData[key]) {
+                                    const random = Math.random();
+                                    let requirement, allowed_stay;
+                                    if (random < 0.4) {
+                                        requirement = "VISA_FREE";
+                                        allowed_stay = ["30 days", "60 days", "90 days", "6 months"][Math.floor(Math.random() * 4)];
+                                    } else if (random < 0.7) {
+                                        requirement = "E_VISA";
+                                        allowed_stay = ["30 days", "60 days", "90 days"][Math.floor(Math.random() * 3)];
+                                    } else {
+                                        requirement = "VISA_REQUIRED";
+                                        allowed_stay = ["30 days", "60 days", "90 days", "6 months"][Math.floor(Math.random() * 4)];
+                                    }
+                                    allCombinations[key] = {
+                                        requirement,
+                                        type: "tourist",
+                                        allowed_stay,
+                                        notes: requirement === "VISA_REQUIRED" ? ["Apply at embassy"] : []
+                                    };
+                                }
+                            }
+                        });
+                    });
+                    return allCombinations;
+                })()
+            };
+
+            checkVisaBtn.addEventListener('click', () => {
+                const nationality = nationalitySelect.value;
+                const destination = destinationSelect.value;
+                
+                if (!nationality || !destination) {
+                    alert('Please select both nationality and destination');
+                    return;
+                }
+                
+                // In a real app, you would call the Sherpa API here
+                // For demo, we'll use our sample data
+                const visaKey = `${nationality}_${destination}`;
+                const result = visaData[visaKey] || {
+                    "requirement": "UNKNOWN",
+                    "type": visaType,
+                    "allowed_stay": "Check with embassy",
+                    "notes": ["No data available for this combination"],
+                    "embassy_link": "#"
+                };
+                
+                displayVisaResult(result, nationality, destination);
+            });
+
+            function displayVisaResult(result, nationality, destination) {
+                let statusClass, statusText;
+                
+                switch(result.requirement) {
+                    case "VISA_FREE":
+                        statusClass = "visa-free";
+                        statusText = "Visa Not Required";
+                        break;
+                    case "E_VISA":
+                        statusClass = "e-visa";
+                        statusText = "eVisa Available";
+                        break;
+                    case "VISA_REQUIRED":
+                        statusClass = "visa-required";
+                        statusText = "Visa Required";
+                        break;
+                    default:
+                        statusClass = "visa-required";
+                        statusText = "Check Requirements";
+                }
+                
+                const fromCountry = countries.find(c => c.code === nationality)?.name || nationality;
+                const toCountry = countries.find(c => c.code === destination)?.name || destination;
+                
+                visaResult.innerHTML = `
+                    <h3>Visa Requirements for ${fromCountry} citizens traveling to ${toCountry}</h3>
+                    <div class="visa-status ${statusClass}">${statusText} (${result.type.charAt(0).toUpperCase() + result.type.slice(1)})</div>
+                    
+                    <div class="requirement-item">
+                        <h4>Visa Type</h4>
+                        <p>${result.type.charAt(0).toUpperCase() + result.type.slice(1)} Visa</p>
+                    </div>
+                    
+                    <div class="requirement-item">
+                        <h4>Allowed Stay</h4>
+                        <p>${result.allowed_stay}</p>
+                    </div>
+                    
+                    ${result.notes.length ? `
+                    <div class="requirement-item">
+                        <h4>Notes</h4>
+                        <ul>
+                            ${result.notes.map(note => `<li>${note}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    <a href="https://www.google.com/search?q=${toCountry}+embassy+${fromCountry}" target="_blank" class="embassy-link">
+                        <i class="fas fa-external-link-alt"></i> Find Embassy Information
+                    </a>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4>More Information</h4>
+                        <p>For the most accurate and up-to-date information, please visit the official embassy website or consult with immigration authorities.</p>
+                        <a href="https://travel.state.gov/" target="_blank" class="btn btn-secondary" style="margin-top: 1rem;">
+                            <i class="fas fa-globe"></i> US State Department Travel Info
+                        </a>
+                    </div>
+                `;
+                
+                visaResult.style.display = 'block';
+            }
+
+            // FAQ Toggle
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    answer.classList.toggle('show');
+                    
+                    const icon = question.querySelector('i');
+                    if (answer.classList.contains('show')) {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    } else {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    }
+                });
+            });
+
+            // Form Submission
+            document.getElementById('supportForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your message! Our support team will get back to you soon.');
+                e.target.reset();
+            });
+        }
+    </script>
+</body>
+</html>
